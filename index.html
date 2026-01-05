@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>RecibosOnline - Gerador de Recibos Grátis</title>
     <meta name="description" content="Gerador de Recibos Online Grátis – Simples, Rápido e Profissional. Emita recibos de aluguel, serviços e venda em PDF ou para WhatsApp." />
+    <meta name="theme-color" content="#10b981">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -32,39 +33,42 @@
       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
       body {
         font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
       }
       /* Print styles for perfect receipt printing */
       @media print {
-        .no-print {
-          display: none !important;
-        }
-        .print-only {
-          display: block !important;
-        }
-        body {
-          background: white;
-        }
+        @page { margin: 0; size: auto; }
+        body { background: white; margin: 0; padding: 0; }
+        .no-print { display: none !important; }
+        .print-only { display: block !important; }
         .receipt-container {
-          border: 1px solid #000;
-          box-shadow: none;
-          margin: 0;
-          padding: 20px;
-          width: 100%;
+          border: none !important;
+          box-shadow: none !important;
+          margin: 0 !important;
+          padding: 20px !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          page-break-inside: avoid;
         }
+        /* Ensure background colors print */
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       }
     </style>
-  <script type="importmap">
+    <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0"
+    "react": "https://esm.sh/react@18.2.0",
+    "react/": "https://esm.sh/react@18.2.0/",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.263.1?external=react,react-dom",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
   }
 }
 </script>
-</head>
+  </head>
   <body class="bg-slate-50 text-slate-900">
     <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
   </body>
 </html>
