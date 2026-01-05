@@ -52,41 +52,62 @@ export const numberToWordsPT = (num: number): string => {
 // Conteúdo Rico e SEO para cada tipo de página
 export const PAGE_CONTENT: Record<string, any> = {
   'default': {
-    title: 'Gerador de Recibos Online Grátis – Simples, Rápido e Profissional',
-    heroTitle: 'Gerador de Recibos Online Grátis',
-    heroDescription: 'A ferramenta gratuita mais completa para emitir recibos online. Ideal para aluguel, serviços, vendas e autônomos. PDF pronto para imprimir.',
-    description: 'Gerador de Recibos Online Grátis – Simples, Rápido e Profissional. Emita recibos de aluguel, serviços e venda em PDF ou para WhatsApp.',
+    title: 'Gerador de Recibos Online Grátis – Simples, Rápido e Profissional (2024)',
+    heroTitle: 'Gerador de Recibos Online',
+    heroDescription: 'A ferramenta #1 do Brasil para emitir recibos profissionais. Preencha, gere em PDF e envie no WhatsApp em segundos. 100% Grátis e Seguro.',
+    description: 'Crie recibos online grátis com validade jurídica. Modelos para aluguel, serviços e vendas. Gere em PDF ou envie direto para o WhatsApp sem cadastro.',
     receiptTitle: 'RECIBO DE PAGAMENTO',
     schemaType: 'SoftwareApplication',
     faqs: [
-      { question: 'Como emitir um recibo online grátis?', answer: 'Basta preencher os campos no formulário acima (valor, pagador, emitente e descrição). O sistema gera automaticamente o modelo pronto. Depois, clique em "Imprimir / Salvar PDF" ou envie direto para o WhatsApp.' },
-      { question: 'Este recibo tem validade jurídica?', answer: 'Sim. Um recibo assinado comprova a quitação de uma dívida ou pagamento, conforme o Código Civil Brasileiro (Art. 319 e 320), desde que contenha os dados essenciais (valor, nomes, data e assinatura).' },
-      { question: 'É seguro usar o RecibosOnline?', answer: 'Totalmente seguro. Não salvamos seus dados em nenhum servidor. Todo o processamento do recibo acontece dentro do seu próprio navegador/celular.' }
+      { question: 'O RecibosOnline é realmente gratuito?', answer: 'Sim, 100% gratuito. Você pode gerar recibos ilimitados, baixar em PDF e compartilhar no WhatsApp sem pagar nada e sem precisar fazer cadastro.' },
+      { question: 'O recibo gerado tem validade jurídica?', answer: 'Sim. O documento gerado atende aos requisitos do Artigo 320 do Código Civil Brasileiro, servindo como prova legal de quitação de pagamento, desde que assinado pelo emitente.' },
+      { question: 'Meus dados ficam salvos no site?', answer: 'Não. Para sua segurança e privacidade (LGPD), nossa tecnologia processa tudo no seu navegador. Nenhuma informação financeira ou dado pessoal é enviado para nossos servidores.' },
+      { question: 'Posso usar no celular?', answer: 'Sim! O sistema é responsivo e funciona perfeitamente em Android e iPhone (iOS), facilitando o envio do comprovante pelo WhatsApp logo após receber o pagamento.' }
     ],
     richText: `
-      <p>A emissão de um <strong>recibo de pagamento</strong> é uma etapa fundamental para garantir a segurança jurídica de qualquer transação financeira, seja ela comercial ou pessoal. O <strong>RecibosOnline</strong> foi desenvolvido para facilitar esse processo, oferecendo uma solução ágil, gratuita e sem burocracia.</p>
+      <h2>A Maneira Mais Rápida de Criar Recibos Profissionais</h2>
+      <p>Bem-vindo ao <strong>RecibosOnline.com.br</strong>, a solução definitiva para autônomos, proprietários de imóveis e pequenos empresários que precisam formalizar pagamentos sem burocracia. Esqueça os blocos de papel de papelaria; nossa tecnologia permite criar documentos digitais, organizados e legíveis em segundos.</p>
       
-      <h3 class="text-lg font-bold text-slate-800 mt-4 mb-2">Por que usar nosso Gerador de Recibos?</h3>
-      <ul class="list-disc pl-5 space-y-2 mb-4">
-        <li><strong>Sem Cadastro:</strong> Não exigimos e-mail ou login. É entrar e usar.</li>
-        <li><strong>Formatação Profissional:</strong> Modelos limpos e organizados que transmitem credibilidade.</li>
-        <li><strong>Compatível com Mobile:</strong> Gere recibos direto do seu celular Android ou iOS.</li>
-        <li><strong>Integração com WhatsApp:</strong> Envie o comprovante para seu cliente com um clique.</li>
+      <h3>Por que abandonar o talão de recibo tradicional?</h3>
+      <p>No cenário digital de 2024, entregar um papel escrito à mão transmite amadorismo. Utilizar um gerador online oferece:</p>
+      <ul>
+        <li><strong>Profissionalismo:</strong> Um PDF bem formatado aumenta a confiança do seu cliente.</li>
+        <li><strong>Agilidade:</strong> Preenchimento automático de datas e conversão de valores.</li>
+        <li><strong>Sustentabilidade:</strong> Economize papel enviando o comprovante digitalmente.</li>
+        <li><strong>Organização:</strong> Facilidade para arquivar os PDFs no seu computador ou nuvem.</li>
       </ul>
 
-      <h3 class="text-lg font-bold text-slate-800 mt-4 mb-2">Elementos Essenciais de um Recibo</h3>
-      <p>Para que um recibo seja válido legalmente, ele precisa conter:</p>
-      <ul class="list-disc pl-5 space-y-2">
-        <li><strong>Valor:</strong> Numérico e por extenso (nosso sistema preenche automaticamente).</li>
-        <li><strong>Partes:</strong> Nome completo ou Razão Social de quem paga e de quem recebe (com CPF/CNPJ).</li>
-        <li><strong>Descrição:</strong> O motivo do pagamento (ex: "Aluguel referente a Março").</li>
-        <li><strong>Data e Local:</strong> Onde e quando o pagamento foi efetuado.</li>
-        <li><strong>Assinatura:</strong> Do emitente (quem recebeu o dinheiro).</li>
+      <h3>Validade Jurídica e Segurança (Código Civil)</h3>
+      <p>Muitos usuários perguntam: <em>"Um recibo online vale como prova?"</em>. A resposta é <strong>sim</strong>.</p>
+      <p>De acordo com o <strong>Artigo 320 do Código Civil Brasileiro</strong>, a quitação é válida quando contém:</p>
+      <ol>
+        <li>O valor da dívida (numérico e por extenso);</li>
+        <li>O nome do devedor (quem pagou);</li>
+        <li>O tempo e o lugar do pagamento;</li>
+        <li>A assinatura do credor (quem recebeu).</li>
+      </ol>
+      <p>Nosso sistema garante que todos esses campos estejam presentes. Após imprimir, basta assinar fisicamente ou, se enviado digitalmente, a confirmação de envio pode servir como rastro da transação.</p>
+
+      <h3>Como usar o Gerador de Recibos</h3>
+      <p>É extremamente simples e leva menos de 1 minuto:</p>
+      <ol>
+        <li><strong>Preencha o Valor:</strong> Digite o valor numérico. O sistema sugere o valor por extenso automaticamente.</li>
+        <li><strong>Identifique as Partes:</strong> Coloque o nome de quem pagou e de quem recebeu (com CPF/CNPJ para maior segurança).</li>
+        <li><strong>Descreva o Pagamento:</strong> Seja específico. Ex: "Aluguel Maio/2024" ou "Serviço de Manutenção PC".</li>
+        <li><strong>Finalize:</strong> Clique em "Imprimir / Salvar PDF" ou envie direto para o WhatsApp do cliente.</li>
+      </ol>
+
+      <h3>Modelos Específicos Disponíveis</h3>
+      <p>Além do modelo genérico, oferecemos templates otimizados para necessidades específicas:</p>
+      <ul>
+        <li><a href="#modelo/aluguel-residencial">Recibo de Aluguel</a>: Com campos para mês de referência e endereço.</li>
+        <li><a href="#modelo/veiculos">Compra e Venda de Veículos</a>: Ideal para sinal ou transferência de carros/motos.</li>
+        <li><a href="#modelo/servicos">Prestação de Serviços</a>: Para autônomos, diaristas e freelancers (RPA simples).</li>
       </ul>
     `
   },
   'aluguel-residencial': {
-    title: 'Recibo de Aluguel Residencial Grátis - Modelo PDF/Word',
+    title: 'Recibo de Aluguel Residencial Grátis - Modelo Lei do Inquilinato',
     heroTitle: 'Emitir Recibo de Aluguel',
     heroDescription: 'Gere recibos de aluguel residencial em segundos. Modelo atualizado conforme a Lei do Inquilinato. Grátis e sem cadastro.',
     description: 'Emita seu recibo de aluguel residencial em segundos. Modelo profissional pronto para imprimir ou enviar no WhatsApp.',
@@ -100,9 +121,9 @@ export const PAGE_CONTENT: Record<string, any> = {
     richText: `
       <p>O <strong>recibo de aluguel</strong> é o documento que comprova que o inquilino cumpriu sua obrigação financeira mensal. Para o proprietário (locador), é a segurança de que o valor foi recebido e a dívida daquele mês está quitada.</p>
       
-      <h3 class="text-lg font-bold text-slate-800 mt-4 mb-2">Destaques do Modelo de Aluguel</h3>
+      <h3>Destaques do Modelo de Aluguel</h3>
       <p>Nosso gerador é otimizado especificamente para locações residenciais e comerciais, incluindo campos vitais como:</p>
-      <ul class="list-disc pl-5 space-y-2 mb-4">
+      <ul>
         <li><strong>Mês de Referência:</strong> Evita confusões sobre qual período está sendo pago.</li>
         <li><strong>Endereço do Imóvel:</strong> Vincula o pagamento ao contrato de locação específico.</li>
         <li><strong>Multas e Juros:</strong> O campo de valor permite que você some eventuais acréscimos por atraso.</li>
@@ -125,9 +146,9 @@ export const PAGE_CONTENT: Record<string, any> = {
     richText: `
       <p>Ao negociar um veículo usado, seja carro, moto ou caminhão, é crucial emitir um <strong>recibo de compra e venda</strong> que detalhe a transação financeira. Isso protege o vendedor de reclamações futuras sobre falta de pagamento e garante ao comprador a prova da quitação.</p>
 
-      <h3 class="text-lg font-bold text-slate-800 mt-4 mb-2">O que incluir na descrição?</h3>
+      <h3>O que incluir na descrição?</h3>
       <p>Recomendamos que, no campo "Descrição/Referente a", você inclua:</p>
-      <ul class="list-disc pl-5 space-y-2">
+      <ul>
         <li><strong>Modelo e Marca:</strong> Ex: Honda Civic LXR 2.0.</li>
         <li><strong>Placa e Cor:</strong> Para identificação única do bem.</li>
         <li><strong>Renavam ou Chassi:</strong> (Opcional, mas recomendado para maior segurança).</li>
@@ -149,8 +170,8 @@ export const PAGE_CONTENT: Record<string, any> = {
     richText: `
       <p>Prestadores de serviços, freelancers e profissionais liberais devem sempre emitir recibos para manter a transparência com seus clientes e organizar sua contabilidade.</p>
 
-      <h3 class="text-lg font-bold text-slate-800 mt-4 mb-2">Ideal para quais profissionais?</h3>
-      <ul class="list-disc pl-5 space-y-2 mb-4">
+      <h3>Ideal para quais profissionais?</h3>
+      <ul>
         <li><strong>Domésticos:</strong> Diaristas, jardineiros, piscineiros.</li>
         <li><strong>Construção Civil:</strong> Pedreiros, eletricistas, encanadores, pintores.</li>
         <li><strong>Beleza e Estética:</strong> Manicures, cabeleireiros, maquiadores.</li>
