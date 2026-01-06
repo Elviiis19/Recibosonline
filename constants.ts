@@ -16,7 +16,7 @@ export const AVAILABLE_MODELS = [
     description: 'Para pagamentos diversos, vendas de produtos e serviços rápidos.',
     icon: FileText,
     color: 'bg-emerald-500', // Verde Principal
-    path: '#recibo-simples'
+    path: '/recibo-simples'
   },
   {
     id: 'aluguel-residencial',
@@ -24,7 +24,7 @@ export const AVAILABLE_MODELS = [
     description: 'Para proprietários e inquilinos. Em conformidade com a Lei do Inquilinato.',
     icon: Home,
     color: 'bg-blue-500',
-    path: '#recibo-de-aluguel' // URL Otimizada
+    path: '/recibo-de-aluguel' // URL Otimizada
   },
   {
     id: 'veiculos',
@@ -32,7 +32,7 @@ export const AVAILABLE_MODELS = [
     description: 'Carros e Motos. Ideal para sinal de negócio ou quitação de venda.',
     icon: Car,
     color: 'bg-orange-500',
-    path: '#recibo-de-veiculo' // URL Otimizada
+    path: '/recibo-de-veiculo' // URL Otimizada
   },
   {
     id: 'servicos',
@@ -40,7 +40,7 @@ export const AVAILABLE_MODELS = [
     description: 'Para autônomos, freelancers, MEI e RPA (Recibo de Pagamento Autônomo).',
     icon: Briefcase,
     color: 'bg-purple-500',
-    path: '#recibo-de-servico' // URL Otimizada
+    path: '/recibo-de-servico' // URL Otimizada
   },
   {
     id: 'mao-de-obra',
@@ -48,7 +48,7 @@ export const AVAILABLE_MODELS = [
     description: 'Pedreiros, pintores, eletricistas e manutenção geral.',
     icon: Hammer,
     color: 'bg-slate-600',
-    path: '#recibo-mao-de-obra'
+    path: '/recibo-mao-de-obra'
   },
   {
     id: 'diarista',
@@ -56,7 +56,7 @@ export const AVAILABLE_MODELS = [
     description: 'Recibo de diária ou salário para empregadas domésticas.',
     icon: UserCheck,
     color: 'bg-pink-500',
-    path: '#recibo-diarista'
+    path: '/recibo-diarista'
   },
   {
     id: 'aluguel-comercial',
@@ -64,7 +64,7 @@ export const AVAILABLE_MODELS = [
     description: 'Salas, lojas e galpões comerciais. Com retenção de IR se necessário.',
     icon: Building2,
     color: 'bg-indigo-600',
-    path: '#recibo-comercial'
+    path: '/recibo-comercial'
   },
   {
     id: 'vale',
@@ -72,41 +72,41 @@ export const AVAILABLE_MODELS = [
     description: 'Comprovante de adiantamento salarial para funcionários.',
     icon: Wallet,
     color: 'bg-green-600',
-    path: '#recibo-de-vale'
+    path: '/recibo-de-vale'
   }
 ];
 
 export const MENU_STRUCTURE = [
   {
     label: 'Recibos Comuns',
-    path: '#',
+    path: '/',
     subItems: [
-      { label: 'Recibo Simples', path: '#recibo-simples' },
-      { label: 'Recibo de Pagamento', path: '#recibo-simples' },
+      { label: 'Recibo Simples', path: '/recibo-simples' },
+      { label: 'Recibo de Pagamento', path: '/recibo-simples' },
     ]
   },
   {
     label: 'Imóveis',
-    path: '#',
+    path: '/',
     subItems: [
-      { label: 'Aluguel Residencial', path: '#recibo-de-aluguel' },
-      { label: 'Aluguel Comercial', path: '#recibo-comercial' },
+      { label: 'Aluguel Residencial', path: '/recibo-de-aluguel' },
+      { label: 'Aluguel Comercial', path: '/recibo-comercial' },
     ]
   },
   {
     label: 'Veículos',
-    path: '#',
+    path: '/',
     subItems: [
-      { label: 'Compra e Venda', path: '#recibo-de-veiculo' },
-      { label: 'Sinal de Negócio', path: '#recibo-de-veiculo' },
+      { label: 'Compra e Venda', path: '/recibo-de-veiculo' },
+      { label: 'Sinal de Negócio', path: '/recibo-de-veiculo' },
     ]
   },
   {
     label: 'Serviços',
-    path: '#',
+    path: '/',
     subItems: [
-      { label: 'Prestação de Serviços', path: '#recibo-de-servico' },
-      { label: 'Mão de Obra', path: '#recibo-mao-de-obra' },
+      { label: 'Prestação de Serviços', path: '/recibo-de-servico' },
+      { label: 'Mão de Obra', path: '/recibo-mao-de-obra' },
     ]
   }
 ];
@@ -120,6 +120,16 @@ export const numberToWordsPT = (num: number): string => {
 
 // Conteúdo Rico e SEO (Estratégia "Skyscraper" para superar Neofin/Contabilizei)
 export const PAGE_CONTENT: Record<string, any> = {
+  'default': { // Fallback Content (Cópia do Simples para evitar crash)
+    title: 'Gerador de Recibo Online Grátis',
+    heroTitle: 'Gerador de Recibo Online',
+    heroDescription: 'Preencha os dados e gere seu recibo em PDF ou envie no WhatsApp. Rápido e Grátis.',
+    description: 'Gerador de recibo online gratuito.',
+    receiptTitle: 'RECIBO',
+    schemaType: 'SoftwareApplication',
+    faqs: [],
+    richText: `<p>Utilize nossa ferramenta gratuita para gerar recibos profissionais em segundos.</p>`
+  },
   'home': { 
     title: 'Gerador de Recibo Online Grátis e Fácil (PDF e WhatsApp)',
     heroTitle: '', 
@@ -148,7 +158,6 @@ export const PAGE_CONTENT: Record<string, any> = {
       </ul>
     `
   },
-  // --- PÁGINAS INSTITUCIONAIS E LEGAIS ---
   'quem-somos': {
     title: 'Quem Somos | RecibosOnline - Tecnologia Desburocratizada',
     heroTitle: 'Sobre Nós',

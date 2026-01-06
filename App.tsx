@@ -8,63 +8,111 @@ import type { ReceiptType } from './types';
 import { Star, ChevronRight, Check, ArrowRight, MousePointer2, Lock, Layout, ShieldCheck, Scale } from 'lucide-react';
 
 const App: React.FC = () => {
-  const [currentHash, setCurrentHash] = useState<string>(() => {
+  // SOURCE OF TRUTH: React State (Memória). 
+  // Isso garante que a UI funcione mesmo se a URL for bloqueada pelo navegador.
+  const [currentPath, setCurrentPath] = useState<string>(() => {
     if (typeof window !== 'undefined') {
-      return window.location.hash || '';
+      const path = window.location.pathname === '/' ? '' : window.location.pathname;
+      return path;
     }
     return '';
   });
 
+  // Função segura de navegação
+  const navigateTo = (path: string) => {
+    // 1. Atualiza a UI imediatamente
+    const normalizedPath = path === '/' ? '' : path;
+    setCurrentPath(normalizedPath);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // 2. Tenta atualizar a URL (Visual apenas). Se falhar (Sandbox/SecurityError), o site NÃO quebra.
+    try {
+      window.history.pushState({}, '', path);
+    } catch (e) {
+      console.warn('Atualização de URL bloqueada pelo ambiente (sem impacto na usabilidade).', e);
+    }
+  };
+
+  // Escuta o botão "Voltar" do navegador
   useEffect(() => {
-    const handleHashChange = () => {
-      setCurrentHash(window.location.hash);
-      if (window.scrollY > 50) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+    const handlePopState = () => {
+      const path = window.location.pathname === '/' ? '' : window.location.pathname;
+      setCurrentPath(path);
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const cleanHash = currentHash.replace('#', '');
+  // Interceptador Global de Links (SPA)
+  useEffect(() => {
+    const handleLinkClick = (e: MouseEvent) => {
+        const anchor = (e.target as HTMLElement).closest('a');
+        if (!anchor) return;
+        
+        const href = anchor.getAttribute('href');
+        if (!href) return;
+        
+        // Ignora links externos ou ações de sistema
+        if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+        
+        // Links com Hash (#) continuam funcionando nativamente (scroll)
+        if (href.startsWith('#')) {
+             return; 
+        }
+
+        // Links Internos (começando com /) usam nossa navegação segura
+        if (href.startsWith('/')) {
+            e.preventDefault();
+            navigateTo(href);
+        }
+    };
+    
+    // Adiciona listener com capture false para não quebrar outros eventos
+    document.body.addEventListener('click', handleLinkClick);
+    return () => document.body.removeEventListener('click', handleLinkClick);
+  }, []);
+
+  // Normaliza a chave para buscar o conteúdo
+  const pathKey = currentPath.startsWith('/') ? currentPath.substring(1) : currentPath;
   
   // Define se é a Home
-  const isHomePage = cleanHash === '';
+  const isHomePage = pathKey === '' || pathKey === 'modelos' || pathKey === 'index.html';
 
-  // Define se é uma página de Texto/Institucional (Não tem gerador)
-  const isContentPage = ['quem-somos', 'politica-privacidade', 'termos-uso'].includes(cleanHash);
+  // Define se é uma página de Texto/Institucional
+  const isContentPage = ['quem-somos', 'politica-privacidade', 'termos-uso'].includes(pathKey);
 
-  // Lógica de Roteamento para as Ferramentas (Geradores)
+  // Lógica de Roteamento (Seleção do Modelo)
   const getReceiptTypeAndContentKey = (): { type: ReceiptType, key: string } => {
     
-    // Institucionais (Retorna default apenas para não quebrar, mas isContentPage controla a renderização)
-    if (isContentPage) return { type: 'generico', key: cleanHash };
+    if (isContentPage) return { type: 'generico', key: pathKey };
 
-    // Roteamento SEO-Friendly (URLs limpas para competir no Google)
-    if (cleanHash === 'recibo-simples') return { type: 'generico', key: 'recibo-simples' };
+    // Mapeamento direto (slug da URL -> chave do conteúdo)
+    if (pathKey === 'recibo-simples') return { type: 'generico', key: 'recibo-simples' };
     
-    // Mapeamento de URLs amigáveis para Tipos internos
-    if (cleanHash === 'recibo-de-aluguel') return { type: 'aluguel-residencial', key: 'aluguel-residencial' };
-    if (cleanHash === 'recibo-comercial') return { type: 'aluguel-comercial', key: 'aluguel-residencial' }; 
+    if (pathKey === 'recibo-de-aluguel') return { type: 'aluguel-residencial', key: 'aluguel-residencial' };
+    if (pathKey === 'recibo-comercial') return { type: 'aluguel-comercial', key: 'aluguel-residencial' }; 
     
-    if (cleanHash === 'recibo-de-veiculo') return { type: 'veiculos', key: 'veiculos' };
+    if (pathKey === 'recibo-de-veiculo') return { type: 'veiculos', key: 'veiculos' };
     
-    if (cleanHash === 'recibo-de-servico') return { type: 'servicos', key: 'servicos' };
-    if (cleanHash === 'recibo-mao-de-obra') return { type: 'mao-de-obra', key: 'servicos' };
-    if (cleanHash === 'recibo-diarista') return { type: 'diarista', key: 'servicos' };
+    if (pathKey === 'recibo-de-servico') return { type: 'servicos', key: 'servicos' };
+    if (pathKey === 'recibo-mao-de-obra') return { type: 'mao-de-obra', key: 'servicos' };
+    if (pathKey === 'recibo-diarista') return { type: 'diarista', key: 'servicos' };
     
-    if (cleanHash === 'recibo-de-vale') return { type: 'vale', key: 'default' };
+    if (pathKey === 'recibo-de-vale') return { type: 'vale', key: 'default' };
     
     return { type: 'generico', key: 'default' }; // Fallback
   };
 
   const { type, key } = getReceiptTypeAndContentKey();
   
-  // Seleciona o conteúdo baseado na Home, Key Específica ou Default
+  // Seleção de Conteúdo com Fallback Seguro
+  // Se a chave não existir, mostra a Home ou Default em vez de tela branca
   const content = isHomePage 
     ? PAGE_CONTENT['home'] 
-    : (PAGE_CONTENT[key] || PAGE_CONTENT['default']);
+    : (PAGE_CONTENT[key] || PAGE_CONTENT['default'] || PAGE_CONTENT['home']);
+
+  if (!content) return null;
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
@@ -72,7 +120,7 @@ const App: React.FC = () => {
         type={content.schemaType} 
         name={content.title} 
         description={content.description}
-        url={`https://recibosonline.com.br/${currentHash}`}
+        url={`https://recibosonline.com.br${currentPath || '/'}`}
       />
       
       <Header />
@@ -104,7 +152,7 @@ const App: React.FC = () => {
                   </p>
 
                   <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
-                     <a href="#recibo-simples" className="inline-flex items-center justify-center px-8 py-4 bg-brand-600 text-white text-lg font-bold rounded-xl hover:bg-brand-700 transition-all shadow-xl shadow-brand-200 hover:shadow-brand-300 transform hover:-translate-y-1">
+                     <a href="/recibo-simples" className="inline-flex items-center justify-center px-8 py-4 bg-brand-600 text-white text-lg font-bold rounded-xl hover:bg-brand-700 transition-all shadow-xl shadow-brand-200 hover:shadow-brand-300 transform hover:-translate-y-1">
                         Gerar Recibo Agora <ArrowRight className="ml-2" size={20} />
                      </a>
                      <a href="#modelos" className="inline-flex items-center justify-center px-8 py-4 bg-white text-slate-700 text-lg font-bold rounded-xl border border-slate-200 hover:bg-slate-50 transition-all">
@@ -240,7 +288,7 @@ const App: React.FC = () => {
           <div className="bg-slate-50 min-h-screen">
              <div className="bg-slate-900 text-white pt-10 pb-24 md:pb-32 px-4 no-print">
                 <div className="max-w-7xl mx-auto">
-                   <a href="#" className="inline-flex items-center text-slate-400 hover:text-white mb-6 text-sm font-medium transition-colors">
+                   <a href="/" className="inline-flex items-center text-slate-400 hover:text-white mb-6 text-sm font-medium transition-colors">
                       <ChevronRight className="rotate-180 mr-1" size={16} /> Voltar para Home
                    </a>
                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
