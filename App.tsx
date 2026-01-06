@@ -5,7 +5,7 @@ import { ReceiptGenerator } from './components/ReceiptGenerator';
 import { JsonLd } from './components/JsonLd';
 import { PAGE_CONTENT, AVAILABLE_MODELS } from './constants';
 import type { ReceiptType } from './types';
-import { ShieldCheck, Zap, Smartphone, Star, FileText, ChevronRight, Check, ArrowRight, MousePointer2, Lock, Layout } from 'lucide-react';
+import { Star, ChevronRight, Check, ArrowRight, MousePointer2, Lock, Layout } from 'lucide-react';
 
 const App: React.FC = () => {
   const [currentHash, setCurrentHash] = useState<string>(() => {

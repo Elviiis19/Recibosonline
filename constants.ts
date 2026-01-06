@@ -1,4 +1,4 @@
-import { FileText, Home, Car, Briefcase, Hammer, UserCheck, Building2, Wallet, ArrowRight, CheckCircle2, Shield, Lock } from 'lucide-react';
+import { FileText, Home, Car, Briefcase, Hammer, UserCheck, Building2, Wallet } from 'lucide-react';
 
 // Ecosystem Links (Strategy: Link Juice & Brand Authority)
 export const ECOSYSTEM_LINKS = [

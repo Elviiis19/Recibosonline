@@ -13,6 +13,7 @@ export const JsonLd: React.FC<JsonLdProps> = ({ type, name, description, url }) 
     "@type": type,
     "name": name,
     "description": description,
+    "url": url,
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web",
     "offers": {
