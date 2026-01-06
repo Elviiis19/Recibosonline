@@ -5,11 +5,10 @@ import { ReceiptGenerator } from './components/ReceiptGenerator';
 import { JsonLd } from './components/JsonLd';
 import { PAGE_CONTENT, AVAILABLE_MODELS } from './constants';
 import type { ReceiptType } from './types';
-import { Star, ChevronRight, Check, ArrowRight, MousePointer2, Lock, Layout, ShieldCheck, Scale } from 'lucide-react';
+import { Star, ChevronRight, Check, ArrowRight, MousePointer2, Lock, Layout, ShieldCheck, Scale, Phone, Mail } from 'lucide-react';
 
 const App: React.FC = () => {
   // SOURCE OF TRUTH: React State (Memória). 
-  // Isso garante que a UI funcione mesmo se a URL for bloqueada pelo navegador.
   const [currentPath, setCurrentPath] = useState<string>(() => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname === '/' ? '' : window.location.pathname;
@@ -20,16 +19,14 @@ const App: React.FC = () => {
 
   // Função segura de navegação
   const navigateTo = (path: string) => {
-    // 1. Atualiza a UI imediatamente
     const normalizedPath = path === '/' ? '' : path;
     setCurrentPath(normalizedPath);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // 2. Tenta atualizar a URL (Visual apenas). Se falhar (Sandbox/SecurityError), o site NÃO quebra.
     try {
       window.history.pushState({}, '', path);
     } catch (e) {
-      console.warn('Atualização de URL bloqueada pelo ambiente (sem impacto na usabilidade).', e);
+      console.warn('Atualização de URL bloqueada pelo ambiente.', e);
     }
   };
 
@@ -39,7 +36,6 @@ const App: React.FC = () => {
       const path = window.location.pathname === '/' ? '' : window.location.pathname;
       setCurrentPath(path);
     };
-
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
@@ -53,22 +49,16 @@ const App: React.FC = () => {
         const href = anchor.getAttribute('href');
         if (!href) return;
         
-        // Ignora links externos ou ações de sistema
         if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
         
-        // Links com Hash (#) continuam funcionando nativamente (scroll)
-        if (href.startsWith('#')) {
-             return; 
-        }
+        if (href.startsWith('#')) return; 
 
-        // Links Internos (começando com /) usam nossa navegação segura
         if (href.startsWith('/')) {
             e.preventDefault();
             navigateTo(href);
         }
     };
     
-    // Adiciona listener com capture false para não quebrar outros eventos
     document.body.addEventListener('click', handleLinkClick);
     return () => document.body.removeEventListener('click', handleLinkClick);
   }, []);
@@ -80,14 +70,13 @@ const App: React.FC = () => {
   const isHomePage = pathKey === '' || pathKey === 'modelos' || pathKey === 'index.html';
 
   // Define se é uma página de Texto/Institucional
-  const isContentPage = ['quem-somos', 'politica-privacidade', 'termos-uso'].includes(pathKey);
+  const isContentPage = ['quem-somos', 'politica-privacidade', 'politica-cookies', 'termos-uso', 'contato'].includes(pathKey);
 
   // Lógica de Roteamento (Seleção do Modelo)
   const getReceiptTypeAndContentKey = (): { type: ReceiptType, key: string } => {
     
     if (isContentPage) return { type: 'generico', key: pathKey };
 
-    // Mapeamento direto (slug da URL -> chave do conteúdo)
     if (pathKey === 'recibo-simples') return { type: 'generico', key: 'recibo-simples' };
     
     if (pathKey === 'recibo-de-aluguel') return { type: 'aluguel-residencial', key: 'aluguel-residencial' };
@@ -101,16 +90,43 @@ const App: React.FC = () => {
     
     if (pathKey === 'recibo-de-vale') return { type: 'vale', key: 'default' };
     
-    return { type: 'generico', key: 'default' }; // Fallback
+    return { type: 'generico', key: 'default' }; 
   };
 
   const { type, key } = getReceiptTypeAndContentKey();
   
-  // Seleção de Conteúdo com Fallback Seguro
-  // Se a chave não existir, mostra a Home ou Default em vez de tela branca
   const content = isHomePage 
     ? PAGE_CONTENT['home'] 
     : (PAGE_CONTENT[key] || PAGE_CONTENT['default'] || PAGE_CONTENT['home']);
+
+  // --- SEO MANAGER (DYNAMIC HEAD) ---
+  useEffect(() => {
+    if (content) {
+      // 1. Title
+      document.title = content.title;
+
+      // 2. Meta Description
+      const metaDesc = document.querySelector("meta[name='description']");
+      if (metaDesc) {
+        metaDesc.setAttribute('content', content.description);
+      } else {
+        const newMeta = document.createElement('meta');
+        newMeta.name = 'description';
+        newMeta.content = content.description;
+        document.head.appendChild(newMeta);
+      }
+
+      // 3. Open Graph Updates
+      const ogTitle = document.querySelector("meta[property='og:title']");
+      if (ogTitle) ogTitle.setAttribute('content', content.title);
+
+      const ogDesc = document.querySelector("meta[property='og:description']");
+      if (ogDesc) ogDesc.setAttribute('content', content.description);
+
+      const ogUrl = document.querySelector("meta[property='og:url']");
+      if (ogUrl) ogUrl.setAttribute('content', `https://recibosonline.com.br${currentPath || '/'}`);
+    }
+  }, [content, currentPath]);
 
   if (!content) return null;
 
@@ -275,6 +291,30 @@ const App: React.FC = () => {
                  <div className="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-slate-200">
                     <article className="prose prose-lg prose-slate prose-headings:font-bold prose-headings:text-slate-900 max-w-none">
                         <div dangerouslySetInnerHTML={{ __html: content.richText }} />
+                        
+                        {/* Se for página de contato, adiciona botões extras */}
+                        {pathKey === 'contato' && (
+                          <div className="grid md:grid-cols-2 gap-6 mt-12 not-prose">
+                             <a href="mailto:contato@recibosonline.com.br" className="flex items-center justify-center gap-3 p-6 bg-slate-50 rounded-xl border border-slate-200 hover:border-brand-400 hover:shadow-md transition-all group">
+                                <div className="bg-white p-3 rounded-full shadow-sm text-brand-600 group-hover:scale-110 transition-transform">
+                                  <Mail size={24} />
+                                </div>
+                                <div className="text-left">
+                                  <p className="text-sm text-slate-500 font-bold uppercase">Email Comercial</p>
+                                  <p className="text-slate-900 font-medium">contato@recibosonline.com.br</p>
+                                </div>
+                             </a>
+                             <div className="flex items-center justify-center gap-3 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                                <div className="bg-white p-3 rounded-full shadow-sm text-slate-400">
+                                  <Phone size={24} />
+                                </div>
+                                <div className="text-left">
+                                  <p className="text-sm text-slate-500 font-bold uppercase">Telefone / WhatsApp</p>
+                                  <p className="text-slate-400 font-medium">Exclusivo para Parcerias</p>
+                                </div>
+                             </div>
+                          </div>
+                        )}
                     </article>
                  </div>
              </div>

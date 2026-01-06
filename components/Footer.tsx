@@ -29,11 +29,14 @@ export const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-bold mb-4 text-brand-400">Legal</h3>
+            <h3 className="text-lg font-bold mb-4 text-brand-400">Institucional & Legal</h3>
             <ul className="space-y-2 text-sm text-slate-400">
-              <li><a href="/politica-privacidade" className="hover:text-white">Política de Privacidade</a></li>
-              <li><a href="/termos-uso" className="hover:text-white">Termos de Uso</a></li>
-              <li><a href="/quem-somos" className="hover:text-white">Quem Somos</a></li>
+              <li><a href="/quem-somos" className="hover:text-white hover:pl-1 transition-all">Quem Somos</a></li>
+              <li><a href="/contato" className="hover:text-white hover:pl-1 transition-all">Fale Conosco</a></li>
+              <li className="h-px bg-slate-800 my-2"></li>
+              <li><a href="/politica-privacidade" className="hover:text-white hover:pl-1 transition-all">Política de Privacidade</a></li>
+              <li><a href="/politica-cookies" className="hover:text-white hover:pl-1 transition-all">Política de Cookies</a></li>
+              <li><a href="/termos-uso" className="hover:text-white hover:pl-1 transition-all">Termos de Uso</a></li>
             </ul>
           </div>
         </div>

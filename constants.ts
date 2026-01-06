@@ -131,7 +131,7 @@ export const PAGE_CONTENT: Record<string, any> = {
     richText: `<p>Utilize nossa ferramenta gratuita para gerar recibos profissionais em segundos.</p>`
   },
   'home': { 
-    title: 'Gerador de Recibo Online Grátis e Fácil (PDF e WhatsApp)',
+    title: 'Gerador de Recibo Online Grátis e Fácil (PDF e WhatsApp) | RecibosOnline',
     heroTitle: '', 
     heroDescription: 'Preencha o formulário abaixo e gere seu recibo em PDF pronto para imprimir ou enviar no WhatsApp. Sem login, sem cadastro e 100% gratuito.',
     description: 'Gere recibos de pagamento ilimitados com o Gerador de Recibo Online nº1 do Brasil. Fácil, Gratuito e Seguro. Baixe em PDF ou envie via WhatsApp sem cadastro.',
@@ -184,7 +184,7 @@ export const PAGE_CONTENT: Record<string, any> = {
     `
   },
   'politica-privacidade': {
-    title: 'Política de Privacidade e Cookies | RecibosOnline',
+    title: 'Política de Privacidade e Proteção de Dados | RecibosOnline',
     heroTitle: 'Política de Privacidade',
     heroDescription: 'Sua segurança é nossa prioridade absoluta. Entenda como (não) tratamos seus dados.',
     description: 'Política de Privacidade em conformidade com a LGPD. Não coletamos dados bancários ou pessoais. Processamento local e seguro.',
@@ -207,15 +207,35 @@ export const PAGE_CONTENT: Record<string, any> = {
         <li>Arquivos gerados.</li>
       </ul>
 
-      <h3>3. Cookies e Tecnologias de Rastreamento</h3>
-      <p>Utilizamos cookies estritamente necessários para o funcionamento técnico do site e ferramentas anônimas de análise de tráfego (como Google Analytics) para entender quais modelos são mais utilizados e melhorar a plataforma. Nenhum cookie é utilizado para identificar você pessoalmente ou para fins de remarketing agressivo.</p>
-
-      <h3>4. LGPD (Lei Geral de Proteção de Dados)</h3>
+      <h3>3. LGPD (Lei Geral de Proteção de Dados)</h3>
       <p>Estamos em total conformidade com a Lei nº 13.709/2018. Como não atuamos como "Controladores" ou "Operadores" de dados pessoais inseridos nos recibos (pois não temos acesso a eles), garantimos por design a proteção da sua liberdade e privacidade.</p>
     `
   },
+  'politica-cookies': {
+    title: 'Política de Cookies e Rastreamento | RecibosOnline',
+    heroTitle: 'Política de Cookies',
+    heroDescription: 'Entenda como utilizamos cookies para melhorar sua experiência.',
+    description: 'Saiba quais cookies utilizamos e como gerenciá-los. Priorizamos cookies essenciais e de desempenho, sem rastreamento invasivo.',
+    receiptTitle: '',
+    schemaType: 'WebPage',
+    faqs: [],
+    richText: `
+      <h3>O que são Cookies?</h3>
+      <p>Cookies são pequenos arquivos de texto que os sites salvam no seu dispositivo. Eles servem para lembrar suas preferências e melhorar a navegação.</p>
+
+      <h3>Tipos de Cookies que Utilizamos</h3>
+      <ul>
+          <li><strong>Cookies Essenciais:</strong> Necessários para que o site funcione (ex: manter a segurança). Estes não podem ser desativados.</li>
+          <li><strong>Cookies de Desempenho (Analytics):</strong> Utilizamos serviços como Google Analytics de forma anonimizada para entender quais páginas são mais visitadas. Isso nos ajuda a criar novos modelos de recibo baseados na demanda real.</li>
+          <li><strong>Cookies de Publicidade:</strong> Podemos exibir anúncios não intrusivos (como Google AdSense) para manter a gratuidade da ferramenta.</li>
+      </ul>
+
+      <h3>Gerenciamento</h3>
+      <p>Você pode desativar os cookies a qualquer momento através das configurações do seu navegador. No entanto, algumas funcionalidades do site podem ser afetadas.</p>
+    `
+  },
   'termos-uso': {
-    title: 'Termos de Uso | RecibosOnline',
+    title: 'Termos de Uso e Condições Gerais | RecibosOnline',
     heroTitle: 'Termos de Uso',
     heroDescription: 'Regras para utilização da nossa plataforma gratuita de geração de documentos.',
     description: 'Termos de uso do RecibosOnline.com.br. Ferramenta gratuita para geração de recibos e documentos.',
@@ -243,22 +263,45 @@ export const PAGE_CONTENT: Record<string, any> = {
       <p>Reservamo-nos o direito de modificar estes termos a qualquer momento. O uso contínuo do site após quaisquer alterações constitui aceitação dos novos termos.</p>
     `
   },
+  'contato': {
+    title: 'Fale Conosco | RecibosOnline - Atendimento',
+    heroTitle: 'Entre em Contato',
+    heroDescription: 'Dúvidas, sugestões ou parcerias? Estamos prontos para ouvir você.',
+    description: 'Entre em contato com a equipe do RecibosOnline. Tire suas dúvidas ou envie sugestões de novos modelos de recibo.',
+    receiptTitle: '',
+    schemaType: 'ContactPage',
+    faqs: [],
+    richText: `
+      <h3>Canais de Atendimento</h3>
+      <p>O <strong>RecibosOnline.com.br</strong> é uma plataforma de autoatendimento ("Self-Service"). Isso significa que a geração dos documentos é feita por você mesmo, de forma automática.</p>
+      <p>No entanto, adoramos receber feedbacks da comunidade!</p>
+
+      <h4>Para que serve este canal?</h4>
+      <ul>
+          <li><strong>Sugestões:</strong> "Vocês poderiam criar um modelo de recibo para táxi?"</li>
+          <li><strong>Reportar Erros:</strong> "Encontrei um erro ortográfico no modelo de Aluguel."</li>
+          <li><strong>Parcerias Comerciais:</strong> Espaço para anunciantes ou integração de sistemas.</li>
+      </ul>
+
+      <p><em>Nota: Não oferecemos consultoria jurídica ou contábil personalizada.</em></p>
+    `
+  },
   // --- MODELOS DE RECIBOS (EXISTENTES) ---
   'recibo-simples': {
-    title: 'Gerador de Recibo Simples Online - PDF e WhatsApp',
+    title: 'Gerador de Recibo Simples Online - PDF e WhatsApp (Grátis)',
     heroTitle: 'Recibo Simples',
     heroDescription: 'O modelo mais versátil para o dia a dia. Ideal para vendas rápidas, pequenos serviços e comprovação de pagamento genérico.',
-    description: 'Crie um Recibo Simples agora. Preencha, gere em PDF e envie. Rápido, fácil e grátis.',
+    description: 'Crie um Recibo Simples agora. Preencha, gere em PDF e envie. Rápido, fácil e grátis. Ideal para autônomos e pequenas vendas.',
     receiptTitle: 'RECIBO DE PAGAMENTO',
     schemaType: 'SoftwareApplication',
     faqs: [],
     richText: `<p>Este é o modelo padrão de <strong>Recibo Simples</strong>. Ele é aceito juridicamente para comprovar pagamentos entre pessoas físicas e jurídicas para valores que não exigem nota fiscal obrigatória.</p>`
   },
   'aluguel-residencial': {
-    title: 'Recibo de Aluguel Online Grátis - Lei do Inquilinato',
+    title: 'Recibo de Aluguel Online Grátis - Lei do Inquilinato (PDF)',
     heroTitle: 'Recibo de Aluguel',
     heroDescription: 'Modelo oficial para locação residencial. Garanta a segurança jurídica do seu imóvel emitindo comprovantes detalhados mensalmente.',
-    description: 'Gerador de Recibo de Aluguel Online. Atende a Lei do Inquilinato. Ideal para proprietários e imobiliárias.',
+    description: 'Gerador de Recibo de Aluguel Online. Atende a Lei do Inquilinato. Ideal para proprietários e imobiliárias. Baixe em PDF.',
     receiptTitle: 'RECIBO DE ALUGUEL',
     schemaType: 'BusinessApplication',
     faqs: [],
@@ -272,7 +315,7 @@ export const PAGE_CONTENT: Record<string, any> = {
     title: 'Recibo de Compra e Venda de Veículos - Carro e Moto',
     heroTitle: 'Recibo de Veículos',
     heroDescription: 'Comprovante financeiro para transações automotivas. Essencial para registrar o pagamento antes da transferência oficial no cartório.',
-    description: 'Recibo para Venda de Carros e Motos. Comprovante de pagamento e sinal de negócio seguro.',
+    description: 'Recibo para Venda de Carros e Motos. Comprovante de pagamento e sinal de negócio seguro. Documento auxiliar ao DUT.',
     receiptTitle: 'RECIBO DE COMPRA E VENDA',
     schemaType: 'BusinessApplication',
     faqs: [],
@@ -283,10 +326,10 @@ export const PAGE_CONTENT: Record<string, any> = {
     `
   },
   'servicos': {
-    title: 'Recibo de Prestação de Serviços (RPA) Online',
+    title: 'Recibo de Prestação de Serviços (RPA) Online Grátis',
     heroTitle: 'Recibo de Serviços',
     heroDescription: 'A ferramenta essencial para o profissional autônomo. Formalize seus "bicos" e trabalhos freelance com profissionalismo.',
-    description: 'Emita Recibo de Prestação de Serviços (RPA) Grátis. Ideal para autônomos e freelancers.',
+    description: 'Emita Recibo de Prestação de Serviços (RPA) Grátis. Ideal para autônomos, pedreiros, freelancers e MEI.',
     receiptTitle: 'RECIBO DE SERVIÇOS',
     schemaType: 'BusinessApplication',
     faqs: [],
