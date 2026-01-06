@@ -8,6 +8,7 @@ export const ECOSYSTEM_LINKS = [
 ];
 
 // Grid Visual da Home Page (Catálogo de Modelos)
+// URLs (paths) otimizadas para SEO (palavras-chave exatas)
 export const AVAILABLE_MODELS = [
   {
     id: 'default',
@@ -15,7 +16,7 @@ export const AVAILABLE_MODELS = [
     description: 'Para pagamentos diversos, vendas de produtos e serviços rápidos.',
     icon: FileText,
     color: 'bg-emerald-500', // Verde Principal
-    path: '#recibo-simples' // Alterado para não ser a home
+    path: '#recibo-simples'
   },
   {
     id: 'aluguel-residencial',
@@ -23,7 +24,7 @@ export const AVAILABLE_MODELS = [
     description: 'Para proprietários e inquilinos. Em conformidade com a Lei do Inquilinato.',
     icon: Home,
     color: 'bg-blue-500',
-    path: '#modelo/aluguel-residencial'
+    path: '#recibo-de-aluguel' // URL Otimizada
   },
   {
     id: 'veiculos',
@@ -31,7 +32,7 @@ export const AVAILABLE_MODELS = [
     description: 'Carros e Motos. Ideal para sinal de negócio ou quitação de venda.',
     icon: Car,
     color: 'bg-orange-500',
-    path: '#modelo/veiculos'
+    path: '#recibo-de-veiculo' // URL Otimizada
   },
   {
     id: 'servicos',
@@ -39,7 +40,7 @@ export const AVAILABLE_MODELS = [
     description: 'Para autônomos, freelancers, MEI e RPA (Recibo de Pagamento Autônomo).',
     icon: Briefcase,
     color: 'bg-purple-500',
-    path: '#modelo/servicos'
+    path: '#recibo-de-servico' // URL Otimizada
   },
   {
     id: 'mao-de-obra',
@@ -47,7 +48,7 @@ export const AVAILABLE_MODELS = [
     description: 'Pedreiros, pintores, eletricistas e manutenção geral.',
     icon: Hammer,
     color: 'bg-slate-600',
-    path: '#modelo/servicos'
+    path: '#recibo-mao-de-obra'
   },
   {
     id: 'diarista',
@@ -55,7 +56,7 @@ export const AVAILABLE_MODELS = [
     description: 'Recibo de diária ou salário para empregadas domésticas.',
     icon: UserCheck,
     color: 'bg-pink-500',
-    path: '#modelo/servicos'
+    path: '#recibo-diarista'
   },
   {
     id: 'aluguel-comercial',
@@ -63,7 +64,7 @@ export const AVAILABLE_MODELS = [
     description: 'Salas, lojas e galpões comerciais. Com retenção de IR se necessário.',
     icon: Building2,
     color: 'bg-indigo-600',
-    path: '#modelo/aluguel-residencial'
+    path: '#recibo-comercial'
   },
   {
     id: 'vale',
@@ -71,7 +72,7 @@ export const AVAILABLE_MODELS = [
     description: 'Comprovante de adiantamento salarial para funcionários.',
     icon: Wallet,
     color: 'bg-green-600',
-    path: '#modelo/vale'
+    path: '#recibo-de-vale'
   }
 ];
 
@@ -86,29 +87,26 @@ export const MENU_STRUCTURE = [
   },
   {
     label: 'Imóveis',
-    path: '#modelos/imoveis',
+    path: '#',
     subItems: [
-      { label: 'Aluguel Residencial', path: '#modelo/aluguel-residencial' },
-      { label: 'Aluguel Comercial', path: '#modelo/aluguel-comercial' },
-      { label: 'Temporada', path: '#modelo/temporada' },
-      { label: 'Vaga de Garagem', path: '#modelo/garagem' },
+      { label: 'Aluguel Residencial', path: '#recibo-de-aluguel' },
+      { label: 'Aluguel Comercial', path: '#recibo-comercial' },
     ]
   },
   {
     label: 'Veículos',
-    path: '#modelos/veiculos',
+    path: '#',
     subItems: [
-      { label: 'Compra e Venda', path: '#modelo/veiculos' },
-      { label: 'Sinal de Negócio', path: '#modelo/sinal' },
+      { label: 'Compra e Venda', path: '#recibo-de-veiculo' },
+      { label: 'Sinal de Negócio', path: '#recibo-de-veiculo' },
     ]
   },
   {
     label: 'Serviços',
-    path: '#modelos/servicos',
+    path: '#',
     subItems: [
-      { label: 'Prestação de Serviços', path: '#modelo/servicos' },
-      { label: 'Mão de Obra', path: '#modelo/mao-de-obra' },
-      { label: 'Diarista', path: '#modelo/diarista' },
+      { label: 'Prestação de Serviços', path: '#recibo-de-servico' },
+      { label: 'Mão de Obra', path: '#recibo-mao-de-obra' },
     ]
   }
 ];
@@ -122,10 +120,10 @@ export const numberToWordsPT = (num: number): string => {
 
 // Conteúdo Rico e SEO (Estratégia "Skyscraper" para superar Neofin/Contabilizei)
 export const PAGE_CONTENT: Record<string, any> = {
-  'home': { // Nova HOME PAGE Conteúdo
+  'home': { 
     title: 'Gerador de Recibo Online Grátis e Fácil (PDF e WhatsApp)',
-    heroTitle: 'Gerador de Recibo Online',
-    heroDescription: 'Fácil, Gratuito e Profissional. O sistema nº1 para emitir recibos de pagamento, aluguel e serviços. Baixe em PDF ou envie no WhatsApp sem cadastro.',
+    heroTitle: '', 
+    heroDescription: 'Preencha o formulário abaixo e gere seu recibo em PDF pronto para imprimir ou enviar no WhatsApp. Sem login, sem cadastro e 100% gratuito.',
     description: 'Gere recibos de pagamento ilimitados com o Gerador de Recibo Online nº1 do Brasil. Fácil, Gratuito e Seguro. Baixe em PDF ou envie via WhatsApp sem cadastro.',
     receiptTitle: '',
     schemaType: 'WebSite',
@@ -136,35 +134,107 @@ export const PAGE_CONTENT: Record<string, any> = {
       { question: 'É seguro gerar recibos neste site?', answer: 'Totalmente. Diferente de sites concorrentes que pedem cadastro, o RecibosOnline.com.br processa os dados diretamente no seu navegador. Nenhuma informação financeira é enviada para nossos servidores, garantindo sua privacidade.' }
     ],
     richText: `
-      <h2>O Melhor Gerador de Recibo Online (Fácil e Gratuito)</h2>
-      <p>Se você procura por um <strong>Gerador de Recibo Online</strong> que seja realmente prático, você encontrou. Enquanto outros sites (como Neofin ou Contabilizei) focam em empresas grandes e exigem cadastros complexos, nossa missão é desburocratizar.</p>
+      <h2>O Gerador de Recibo Online Definitivo</h2>
+      <p>Bem-vindo ao <strong>RecibosOnline.com.br</strong>, a ferramenta projetada para eliminar burocracias. Enquanto outros sistemas exigem cadastros longos e senhas, nós focamos no que importa: <strong>entregar seu documento pronto em segundos.</strong></p>
       
-      <p>Aqui no <strong>RecibosOnline.com.br</strong>, entendemos que você precisa de agilidade. Seja você um proprietário recebendo aluguel, um autônomo prestando serviços ou alguém vendendo um carro, nossa ferramenta resolve seu problema em segundos.</p>
-
-      <h3>Por que abandonar o talão de papel?</h3>
-      <p>O recibo digital traz profissionalismo imediato para o seu negócio. Veja as vantagens de usar nosso sistema:</p>
-      <ul class="grid md:grid-cols-2 gap-4">
-        <li class="flex items-start gap-2"><span class="font-bold text-brand-600">✓</span> <strong>Recibo no WhatsApp:</strong> O cliente recebe na hora, no celular dele.</li>
-        <li class="flex items-start gap-2"><span class="font-bold text-brand-600">✓</span> <strong>PDF Profissional:</strong> Gere documentos em alta qualidade para impressão.</li>
-        <li class="flex items-start gap-2"><span class="font-bold text-brand-600">✓</span> <strong>Cálculos Automáticos:</strong> O valor por extenso é preenchido sozinho.</li>
-        <li class="flex items-start gap-2"><span class="font-bold text-brand-600">✓</span> <strong>100% Gratuito:</strong> Gere quantos recibos quiser, sem pegadinhas.</li>
+      <p>Nossa plataforma é otimizada para ser a mais rápida do Brasil. Seja via celular ou computador, você preenche, gera o PDF e envia no WhatsApp sem telas de carregamento desnecessárias.</p>
+      <h3>Por que nossa ferramenta é a nº1?</h3>
+      <p>Substituímos o antigo bloco de recibos da papelaria com vantagens tecnológicas e legais:</p>
+      <ul class="grid md:grid-cols-2 gap-4 mt-4 mb-6">
+        <li class="flex items-start gap-2 bg-white p-3 rounded-lg border border-slate-100 shadow-sm"><span class="font-bold text-brand-600">✓</span> <strong>Agilidade Extrema:</strong> Interface limpa que vai direto ao ponto.</li>
+        <li class="flex items-start gap-2 bg-white p-3 rounded-lg border border-slate-100 shadow-sm"><span class="font-bold text-brand-600">✓</span> <strong>Formatação Jurídica:</strong> Campos baseados no Art. 320 do Código Civil.</li>
+        <li class="flex items-start gap-2 bg-white p-3 rounded-lg border border-slate-100 shadow-sm"><span class="font-bold text-brand-600">✓</span> <strong>Cálculos Automáticos:</strong> O valor por extenso é preenchido sozinho para evitar erros.</li>
+        <li class="flex items-start gap-2 bg-white p-3 rounded-lg border border-slate-100 shadow-sm"><span class="font-bold text-brand-600">✓</span> <strong>Privacidade LGPD:</strong> Seus dados não saem do seu dispositivo.</li>
       </ul>
-
-      <h3>Modelos Disponíveis no Gerador</h3>
-      <p>Nossa plataforma é um verdadeiro portal de documentos. Diferente de um gerador genérico, oferecemos:</p>
-      <ul>
-        <li><strong>Recibo de Pagamento Simples:</strong> Para o dia a dia.</li>
-        <li><strong>Recibo de Aluguel (Residencial e Comercial):</strong> Essencial para evitar problemas na justiça.</li>
-        <li><strong>RPA (Recibo de Pagamento Autônomo):</strong> Para regularizar serviços prestados por pessoa física.</li>
-        <li><strong>Recibo de Compra e Venda de Veículos:</strong> Segurança na transação de carros e motos.</li>
-      </ul>
-
-      <hr class="my-8 border-slate-200"/>
-
-      <h2>Como funciona o Recibo Online?</h2>
-      <p>É muito simples. Você seleciona a categoria desejada no topo desta página. O sistema carregará o formulário específico com as leis e campos pertinentes àquela transação (como a Lei do Inquilinato para aluguéis). Após preencher, nossa tecnologia gera o documento instantaneamente na sua tela.</p>
     `
   },
+  // --- PÁGINAS INSTITUCIONAIS E LEGAIS ---
+  'quem-somos': {
+    title: 'Quem Somos | RecibosOnline - Tecnologia Desburocratizada',
+    heroTitle: 'Sobre Nós',
+    heroDescription: 'Conheça a missão por trás da ferramenta de recibos mais simples do Brasil.',
+    description: 'O RecibosOnline é uma iniciativa do desenvolvedor Elvis Dias para democratizar o acesso a ferramentas financeiras gratuitas e seguras.',
+    receiptTitle: '',
+    schemaType: 'AboutPage',
+    faqs: [],
+    richText: `
+      <h2>A Missão: Desburocratizar</h2>
+      <p>Olá, sou <strong>Elvis Dias</strong>, Desenvolvedor Full Stack e criador do <strong>RecibosOnline.com.br</strong>.</p>
+      <p>A ideia para este projeto nasceu de uma frustração comum: a complexidade desnecessária. Ao tentar realizar tarefas simples, como emitir um recibo ou gerar um contrato, percebi que a maioria das ferramentas disponíveis na internet ou eram pagas (e caras), ou exigiam cadastros invasivos, ou estavam repletas de anúncios que atrapalhavam o uso.</p>
+      <p>Decidi usar minha experiência em engenharia de software para criar uma solução diferente: <strong>Tecnologia acessível, gratuita e respeitosa.</strong></p>
+
+      <h3>Por que gratuito?</h3>
+      <p>Acredito que ferramentas utilitárias básicas devem ser acessíveis a todos: desde o pequeno prestador de serviços que está começando até o proprietário que aluga um imóvel para complementar a renda. O custo de manter este projeto é absorvido como uma contribuição para a comunidade digital brasileira.</p>
+
+      <h3>Nossos Valores</h3>
+      <ul class="space-y-4 my-6">
+          <li class="flex gap-3"><div class="min-w-[1.5rem] mt-1 text-brand-600 font-bold">1.</div> <div><strong>Privacidade em Primeiro Lugar:</strong> Não queremos seus dados. Todo o processamento do recibo acontece no seu próprio navegador.</div></li>
+          <li class="flex gap-3"><div class="min-w-[1.5rem] mt-1 text-brand-600 font-bold">2.</div> <div><strong>Simplicidade Radical:</strong> Se algo pode ser feito com 1 clique, não faremos com 2.</div></li>
+          <li class="flex gap-3"><div class="min-w-[1.5rem] mt-1 text-brand-600 font-bold">3.</div> <div><strong>Qualidade Técnica:</strong> Utilizamos os padrões mais modernos de desenvolvimento web (React, TypeScript, SEO Técnico) para garantir velocidade e estabilidade.</div></li>
+      </ul>
+    `
+  },
+  'politica-privacidade': {
+    title: 'Política de Privacidade e Cookies | RecibosOnline',
+    heroTitle: 'Política de Privacidade',
+    heroDescription: 'Sua segurança é nossa prioridade absoluta. Entenda como (não) tratamos seus dados.',
+    description: 'Política de Privacidade em conformidade com a LGPD. Não coletamos dados bancários ou pessoais. Processamento local e seguro.',
+    receiptTitle: '',
+    schemaType: 'WebPage',
+    faqs: [],
+    richText: `
+      <p>Última atualização: Março de 2026</p>
+      <p>O <strong>RecibosOnline.com.br</strong> preza pela transparência total. Esta Política de Privacidade descreve como protegemos sua privacidade ao utilizar nossos serviços.</p>
+
+      <h3>1. Arquitetura "Client-Side" (Processamento Local)</h3>
+      <p>Diferente da maioria dos sites, o RecibosOnline opera sob uma arquitetura <em>Client-Side</em>. Isso significa que quando você preenche os campos do recibo (Nome, CPF, Valor), <strong>esses dados nunca são enviados para os nossos servidores</strong>.</p>
+      <p>Todo o processo de geração do PDF e formatação acontece exclusivamente na memória do seu navegador (Google Chrome, Safari, Edge, etc.). Assim que você fecha a aba, os dados desaparecem.</p>
+
+      <h3>2. Coleta de Dados</h3>
+      <p>Nós <strong>NÃO</strong> coletamos, armazenamos ou compartilhamos:</p>
+      <ul>
+        <li>Nomes, endereços ou CPFs inseridos nos formulários;</li>
+        <li>Dados bancários ou de pagamento;</li>
+        <li>Arquivos gerados.</li>
+      </ul>
+
+      <h3>3. Cookies e Tecnologias de Rastreamento</h3>
+      <p>Utilizamos cookies estritamente necessários para o funcionamento técnico do site e ferramentas anônimas de análise de tráfego (como Google Analytics) para entender quais modelos são mais utilizados e melhorar a plataforma. Nenhum cookie é utilizado para identificar você pessoalmente ou para fins de remarketing agressivo.</p>
+
+      <h3>4. LGPD (Lei Geral de Proteção de Dados)</h3>
+      <p>Estamos em total conformidade com a Lei nº 13.709/2018. Como não atuamos como "Controladores" ou "Operadores" de dados pessoais inseridos nos recibos (pois não temos acesso a eles), garantimos por design a proteção da sua liberdade e privacidade.</p>
+    `
+  },
+  'termos-uso': {
+    title: 'Termos de Uso | RecibosOnline',
+    heroTitle: 'Termos de Uso',
+    heroDescription: 'Regras para utilização da nossa plataforma gratuita de geração de documentos.',
+    description: 'Termos de uso do RecibosOnline.com.br. Ferramenta gratuita para geração de recibos e documentos.',
+    receiptTitle: '',
+    schemaType: 'WebPage',
+    faqs: [],
+    richText: `
+      <h3>1. Aceitação dos Termos</h3>
+      <p>Ao acessar e usar o <strong>RecibosOnline.com.br</strong>, você aceita e concorda em estar vinculado aos termos e disposições deste acordo.</p>
+
+      <h3>2. Descrição do Serviço</h3>
+      <p>O RecibosOnline fornece uma ferramenta gratuita para formatação e geração de recibos em PDF. O serviço é fornecido "como está", sem garantias de qualquer tipo, expressas ou implícitas.</p>
+
+      <h3>3. Limitação de Responsabilidade</h3>
+      <p>O RecibosOnline é uma ferramenta de facilitação tecnológica, não um escritório de advocacia ou contabilidade.</p>
+      <ul>
+        <li><strong>Responsabilidade do Usuário:</strong> Você é o único responsável pela veracidade das informações inseridas nos recibos.</li>
+        <li><strong>Validade Legal:</strong> Embora nossos modelos sigam o Código Civil Brasileiro, a adequação legal específica para o seu caso deve ser verificada por você. Não nos responsabilizamos por disputas legais decorrentes do uso de documentos gerados aqui.</li>
+      </ul>
+
+      <h3>4. Uso Permitido</h3>
+      <p>Você tem permissão para usar o site para gerar documentos para uso pessoal ou comercial lícito. É estritamente proibido utilizar a plataforma para gerar documentos falsos, fraudulentos ou para fins ilícitos.</p>
+
+      <h3>5. Alterações</h3>
+      <p>Reservamo-nos o direito de modificar estes termos a qualquer momento. O uso contínuo do site após quaisquer alterações constitui aceitação dos novos termos.</p>
+    `
+  },
+  // --- MODELOS DE RECIBOS (EXISTENTES) ---
   'recibo-simples': {
     title: 'Gerador de Recibo Simples Online - PDF e WhatsApp',
     heroTitle: 'Recibo Simples',
@@ -183,7 +253,11 @@ export const PAGE_CONTENT: Record<string, any> = {
     receiptTitle: 'RECIBO DE ALUGUEL',
     schemaType: 'BusinessApplication',
     faqs: [],
-    richText: `<p>O <strong>Recibo de Aluguel</strong> é obrigatório. Mantenha seu histórico de pagamentos organizado para evitar problemas futuros na justiça ou na declaração do Imposto de Renda.</p>`
+    richText: `
+      <h3>A Importância do Recibo de Aluguel</h3>
+      <p>Para proprietários e inquilinos, o <strong>Recibo de Aluguel</strong> não é apenas um papel, é uma segurança jurídica.</p>
+      <p>Conforme a Lei do Inquilinato (Lei 8.245/91), o locador é obrigado a fornecer recibo discriminado das importâncias pagas. Nosso gerador cria este documento automaticamente, protegendo ambas as partes contra cobranças indevidas ou alegações de inadimplência.</p>
+    `
   },
   'veiculos': {
     title: 'Recibo de Compra e Venda de Veículos - Carro e Moto',
@@ -193,7 +267,11 @@ export const PAGE_CONTENT: Record<string, any> = {
     receiptTitle: 'RECIBO DE COMPRA E VENDA',
     schemaType: 'BusinessApplication',
     faqs: [],
-    richText: `<p>Atenção: Este recibo comprova o <strong>pagamento</strong> do veículo. A transferência de propriedade requer o preenchimento do CRV (DUT) e reconhecimento de firma em cartório.</p>`
+    richText: `
+      <h3>Segurança na Venda de Veículos</h3>
+      <p>Atenção: Este recibo comprova o <strong>pagamento financeiro</strong> (ou sinal/arras) da negociação do veículo. Ele serve como contrato particular de compra e venda simplificado.</p>
+      <p>Para a transferência de propriedade legal, lembre-se de que ainda é necessário o preenchimento do CRV (DUT) e o reconhecimento de firma em cartório, conforme exigência do DETRAN.</p>
+    `
   },
   'servicos': {
     title: 'Recibo de Prestação de Serviços (RPA) Online',
