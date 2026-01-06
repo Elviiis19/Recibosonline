@@ -3,9 +3,9 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { ReceiptGenerator } from './components/ReceiptGenerator';
 import { JsonLd } from './components/JsonLd';
-import { PAGE_CONTENT } from './constants';
+import { PAGE_CONTENT, AVAILABLE_MODELS } from './constants';
 import type { ReceiptType } from './types';
-import { ShieldCheck, Zap, Smartphone, Star, FileText, ChevronDown } from 'lucide-react';
+import { ShieldCheck, Zap, Smartphone, Star, FileText, ChevronDown, Check, ArrowRight } from 'lucide-react';
 
 const App: React.FC = () => {
   // Inicializa com o hash atual ou '#' padrão
@@ -17,20 +17,19 @@ const App: React.FC = () => {
   });
 
   useEffect(() => {
-    // Handler seguro para mudanças de hash
     const handleHashChange = () => {
       setCurrentHash(window.location.hash);
-      window.scrollTo(0, 0);
+      // Scroll to top on hash change for better SPA feel
+      if (window.scrollY > 100) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     };
 
-    // Tenta definir hash inicial se vazio, mas falha silenciosamente em sandboxes
     if (!window.location.hash) {
       try {
-        // Evita replaceState para não causar SecurityError
-        // Apenas definimos o estado interno, sem forçar URL se for bloqueado
         setCurrentHash('#');
       } catch (e) {
-        console.warn('Navigation state locked by environment policy.');
+        console.warn('Navigation state locked.');
       }
     }
 
@@ -38,16 +37,14 @@ const App: React.FC = () => {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  // Lógica de Roteamento (Router Simples)
   const getReceiptTypeAndContentKey = (): { type: ReceiptType, key: string } => {
-    // Limpa o hash para análise
     const cleanHash = currentHash.replace('#', '').replace('modelo/', '');
     
     if (cleanHash.includes('aluguel-residencial')) return { type: 'aluguel-residencial', key: 'aluguel-residencial' };
     if (cleanHash.includes('veiculos')) return { type: 'veiculos', key: 'veiculos' };
     if (cleanHash.includes('servicos')) return { type: 'servicos', key: 'servicos' };
+    if (cleanHash.includes('vale')) return { type: 'vale', key: 'default' };
     
-    // Fallback padrão
     return { type: 'generico', key: 'default' };
   };
 
@@ -66,110 +63,131 @@ const App: React.FC = () => {
       <Header />
 
       <main className="flex-grow">
-        {/* HERO SECTION - Enhanced Visuals */}
-        <div className="relative bg-white pt-12 pb-16 overflow-hidden no-print">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 z-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#059669 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
-            
-            {/* Subtle Gradient Overlay */}
-            <div className="absolute inset-0 z-0 bg-gradient-to-b from-brand-50/80 to-transparent"></div>
+        {/* HERO SECTION - Professional Portal Look */}
+        <div className="relative bg-white pt-12 pb-16 overflow-hidden no-print border-b border-slate-100">
+            {/* Abstract Background Shapes */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+                <div className="absolute -top-[10%] -right-[5%] w-[600px] h-[600px] rounded-full bg-brand-50/40 blur-3xl opacity-60"></div>
+                <div className="absolute top-[20%] -left-[10%] w-[400px] h-[400px] rounded-full bg-blue-50/40 blur-3xl opacity-60"></div>
+                {/* Dot Pattern */}
+                <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#1e293b 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
+            </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                  <div className="text-center mb-12 max-w-4xl mx-auto">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-800 text-sm font-semibold mb-6 border border-brand-200">
-                        <span className="relative flex h-2 w-2">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-                        </span>
-                        Atualizado para 2024
+                    {/* Badge */}
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-50 text-slate-600 text-xs font-bold uppercase tracking-wider mb-8 border border-slate-200 shadow-sm">
+                        <span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                        Plataforma Gratuita
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-tight">
-                        {content.heroTitle} <span className="text-brand-600">Grátis</span>
+
+                    <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-[1.1]">
+                        {content.heroTitle} <br className="hidden md:block" />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-brand-400">Profissional e Seguro</span>
                     </h1>
-                    <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto font-light">
+                    
+                    <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto mb-10 font-light">
                         {content.heroDescription}
                     </p>
-                    
-                    {/* Trust Signals */}
-                    <div className="flex flex-wrap justify-center gap-3 mt-8">
-                        <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-white text-slate-700 border border-slate-200 shadow-sm">
-                           <Star size={14} className="mr-1.5 text-yellow-500 fill-yellow-500" /> Sem limites
-                        </span>
-                        <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-white text-slate-700 border border-slate-200 shadow-sm">
-                           <Zap size={14} className="mr-1.5 text-blue-500" /> Instantâneo
-                        </span>
-                        <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-white text-slate-700 border border-slate-200 shadow-sm">
-                           <ShieldCheck size={14} className="mr-1.5 text-brand-500" /> Dados Privados
-                        </span>
-                    </div>
                  </div>
 
-                 {/* APP CONTAINER */}
-                 <div className="relative z-10">
+                 {/* MODELS CATALOG GRID (The "Home Page" Feature) */}
+                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16 max-w-6xl mx-auto">
+                    {AVAILABLE_MODELS.map((model) => {
+                      const Icon = model.icon;
+                      // Highlight active model if one is selected, otherwise default highlighting
+                      const isActive = currentHash.includes(model.path.replace('#', '')) || (currentHash === '#' && model.id === 'default');
+                      
+                      return (
+                        <a 
+                          key={model.id}
+                          href={model.path}
+                          className={`group relative overflow-hidden rounded-2xl border transition-all duration-300 p-5 md:p-6 text-left hover:shadow-xl hover:-translate-y-1 ${isActive ? 'bg-white border-brand-500 ring-1 ring-brand-500 shadow-lg shadow-brand-100' : 'bg-white border-slate-200 hover:border-brand-200'}`}
+                        >
+                           <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 text-white shadow-md ${model.color}`}>
+                              <Icon size={24} strokeWidth={2} />
+                           </div>
+                           <h3 className="font-bold text-slate-900 text-lg mb-1 group-hover:text-brand-600 transition-colors">
+                             {model.label}
+                           </h3>
+                           <p className="text-xs text-slate-500 leading-relaxed">
+                             {model.description}
+                           </p>
+                           
+                           {/* Decoration */}
+                           <div className="absolute bottom-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-2 group-hover:translate-x-0">
+                              <ArrowRight size={16} className="text-brand-500" />
+                           </div>
+                        </a>
+                      )
+                    })}
+                 </div>
+
+                 {/* APP CONTAINER (The Tool) */}
+                 <div id="gerador" className="relative z-10 scroll-mt-24">
+                    <div className="flex items-center justify-center gap-2 mb-6 opacity-80">
+                         <div className="h-px w-12 bg-slate-300"></div>
+                         <span className="text-sm uppercase font-bold text-slate-400 tracking-widest">Preencha Abaixo</span>
+                         <div className="h-px w-12 bg-slate-300"></div>
+                    </div>
                     <ReceiptGenerator initialType={type} receiptTitle={content.receiptTitle} />
                  </div>
             </div>
         </div>
 
-        {/* E-E-A-T VALUE PROPOSITION */}
-        <section className="py-16 bg-white border-t border-slate-100 no-print">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div className="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-brand-200 transition-colors group">
-                        <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-brand-600 mb-6 shadow-md border border-slate-100 group-hover:scale-110 transition-transform">
-                            <ShieldCheck size={28} />
-                        </div>
-                        <h3 className="text-xl font-bold text-slate-900 mb-3">Segurança e LGPD</h3>
-                        <p className="text-slate-600 leading-relaxed">
-                            Respeitamos sua privacidade. Seus dados são processados localmente no seu dispositivo e nunca são enviados para a nuvem.
-                        </p>
+        {/* TRUST BAR */}
+        <div className="bg-slate-50 border-y border-slate-200 py-8 no-print">
+            <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center md:justify-between items-center gap-8 text-slate-400 grayscale opacity-70">
+                 <div className="flex items-center gap-3">
+                    <div className="p-2 bg-white rounded-lg border border-slate-200 shadow-sm"><ShieldCheck size={24} className="text-brand-500"/></div>
+                    <div className="flex flex-col text-left">
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Dados Seguros</span>
+                        <span className="text-xs">Processamento Local (LGPD)</span>
                     </div>
-                    <div className="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-200 transition-colors group">
-                        <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-blue-600 mb-6 shadow-md border border-slate-100 group-hover:scale-110 transition-transform">
-                            <FileText size={28} />
-                        </div>
-                        <h3 className="text-xl font-bold text-slate-900 mb-3">Válido Juridicamente</h3>
-                        <p className="text-slate-600 leading-relaxed">
-                            Modelos formatados conforme o Art. 320 do Código Civil Brasileiro, servindo como prova legal de quitação.
-                        </p>
+                 </div>
+                 <div className="h-8 w-px bg-slate-200 hidden md:block"></div>
+                 <div className="flex items-center gap-3">
+                    <div className="p-2 bg-white rounded-lg border border-slate-200 shadow-sm"><FileText size={24} className="text-blue-500"/></div>
+                    <div className="flex flex-col text-left">
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Lei do Inquilinato</span>
+                        <span className="text-xs">Modelos Jurídicos</span>
                     </div>
-                    <div className="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:border-purple-200 transition-colors group">
-                        <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-purple-600 mb-6 shadow-md border border-slate-100 group-hover:scale-110 transition-transform">
-                            <Smartphone size={28} />
-                        </div>
-                        <h3 className="text-xl font-bold text-slate-900 mb-3">Otimizado para Mobile</h3>
-                        <p className="text-slate-600 leading-relaxed">
-                            Interface desenhada para funcionar perfeitamente no seu celular. Gere e envie via WhatsApp em poucos toques.
-                        </p>
+                 </div>
+                 <div className="h-8 w-px bg-slate-200 hidden md:block"></div>
+                 <div className="flex items-center gap-3">
+                    <div className="p-2 bg-white rounded-lg border border-slate-200 shadow-sm"><Zap size={24} className="text-yellow-500"/></div>
+                    <div className="flex flex-col text-left">
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Instantâneo</span>
+                        <span className="text-xs">Gerou, Enviou</span>
                     </div>
-                </div>
+                 </div>
             </div>
-        </section>
+        </div>
 
-        {/* CONTENT & FAQs */}
-        <section className="py-20 bg-slate-50 border-t border-slate-200 no-print">
-            <div className="max-w-3xl mx-auto px-4">
-                <div className="prose prose-lg prose-slate prose-headings:text-slate-900 prose-headings:font-bold prose-a:text-brand-600 hover:prose-a:text-brand-700 prose-li:marker:text-brand-400">
+        {/* SEO CONTENT & FAQs */}
+        <section className="py-20 bg-white no-print">
+            <div className="max-w-4xl mx-auto px-4">
+                <article className="prose prose-lg prose-slate prose-headings:text-slate-900 prose-headings:font-bold prose-a:text-brand-600 hover:prose-a:text-brand-700 prose-li:marker:text-brand-400 mx-auto bg-white">
                     {/* Renderização de HTML Seguro para SEO */}
                     <div 
                         dangerouslySetInnerHTML={{ __html: content.richText }}
                     />
+                </article>
 
-                    <h2 className="mt-16 flex items-center gap-2 text-3xl font-bold border-t border-slate-200 pt-10">
-                        Dúvidas Frequentes
-                    </h2>
+                <div className="mt-20 border-t border-slate-100 pt-16">
+                    <h2 className="text-3xl font-bold text-slate-900 text-center mb-10">Perguntas Frequentes sobre Recibos</h2>
                     
-                    <div className="space-y-4 not-prose mt-8">
+                    <div className="grid gap-4 md:grid-cols-2">
                         {content.faqs && content.faqs.map((faq, index) => (
-                            <details key={index} className="group bg-white p-6 rounded-xl border border-slate-200 shadow-sm [&_summary::-webkit-details-marker]:hidden cursor-pointer transition-all hover:border-brand-300">
-                                <summary className="flex justify-between items-center font-bold text-lg text-slate-800 list-none">
+                            <div key={index} className="bg-slate-50 p-6 rounded-2xl border border-slate-100 hover:border-brand-200 transition-colors">
+                                <h3 className="font-bold text-lg text-slate-900 mb-3 flex items-start gap-3">
+                                    <span className="bg-brand-100 text-brand-700 rounded-full w-6 h-6 flex items-center justify-center text-sm flex-shrink-0 mt-0.5">?</span>
                                     {faq.question}
-                                    <ChevronDown className="transition-transform duration-300 group-open:rotate-180 text-slate-400 group-hover:text-brand-500" size={24} />
-                                </summary>
-                                <div className="text-slate-600 mt-4 leading-relaxed border-t border-slate-100 pt-4 text-base">
+                                </h3>
+                                <p className="text-slate-600 leading-relaxed text-sm">
                                     {faq.answer}
-                                </div>
-                            </details>
+                                </p>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -177,14 +195,20 @@ const App: React.FC = () => {
         </section>
 
         {/* ECOSYSTEM CTA */}
-        <section className="bg-slate-900 py-16 text-center no-print">
-            <div className="max-w-4xl mx-auto px-4">
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">Ferramentas Gratuitas Relacionadas</h2>
+        <section className="bg-slate-900 py-20 text-center no-print relative overflow-hidden">
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+            <div className="max-w-4xl mx-auto px-4 relative z-10">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Potencialize sua Produtividade</h2>
+                <p className="text-slate-400 mb-10 max-w-2xl mx-auto">Conheça nossas outras ferramentas gratuitas desenvolvidas por Elvis Dias para facilitar a burocracia do dia a dia.</p>
+                
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="https://declaracaoonline.com.br" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-bold rounded-xl text-slate-900 bg-brand-400 hover:bg-brand-500 transition-all transform hover:scale-105 shadow-lg shadow-brand-500/20">
+                     <a href="https://recibogratis.com.br" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-4 border border-brand-500 text-base font-bold rounded-xl text-brand-400 hover:bg-brand-500/10 transition-all">
+                        Visitar ReciboGratis.com.br
+                    </a>
+                    <a href="https://declaracaoonline.com.br" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-4 border border-transparent text-base font-bold rounded-xl text-slate-900 bg-brand-400 hover:bg-brand-500 transition-all shadow-lg shadow-brand-500/20">
                         Gerar Declaração
                     </a>
-                    <a href="https://geracontrato.com.br" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-8 py-4 border border-slate-700 text-base font-bold rounded-xl text-white bg-slate-800 hover:bg-slate-700 transition-all transform hover:scale-105">
+                    <a href="https://geracontrato.com.br" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-4 border border-slate-700 text-base font-bold rounded-xl text-white bg-slate-800 hover:bg-slate-700 transition-all">
                         Gerar Contrato
                     </a>
                 </div>

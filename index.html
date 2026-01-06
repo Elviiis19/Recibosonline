@@ -3,9 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>RecibosOnline - Gerador de Recibos Grátis</title>
-    <meta name="description" content="Gerador de Recibos Online Grátis – Simples, Rápido e Profissional. Emita recibos de aluguel, serviços e venda em PDF ou para WhatsApp." />
+    <title>Gerador de Recibo Online Grátis | Recibo Simples e de Pagamento</title>
+    <meta name="description" content="O melhor Gerador de Recibo Online Grátis do Brasil. Crie Recibo Simples, Recibo de Pagamento, Aluguel e Serviços. Emita em PDF ou envie no WhatsApp sem cadastro." />
+    <meta name="keywords" content="recibo online, gerador de recibo, recibo simples, recibo de pagamento, modelo de recibo, recibo grátis, recibo de aluguel, recibo rpa, recibo whatsapp" />
+    <meta name="author" content="Elvis Dias">
     <meta name="theme-color" content="#10b981">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://recibosonline.com.br/">
+    <meta property="og:title" content="Gerador de Recibo Online Grátis | Recibo Simples PDF">
+    <meta property="og:description" content="Crie recibos profissionais em segundos. Ideal para autônomos, aluguel e vendas. 100% Grátis e Seguro.">
+    <meta property="og:image" content="https://recibosonline.com.br/og-image.png">
+
+    <!-- Tailwind via CDN (Zero-config styling) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -18,7 +29,7 @@
                 200: '#a7f3d0',
                 300: '#6ee7b7',
                 400: '#34d399',
-                500: '#10b981', // Emerald 500 - Primary Green
+                500: '#10b981', // Emerald 500
                 600: '#059669',
                 700: '#047857',
                 800: '#065f46',
@@ -30,12 +41,11 @@
       }
     </script>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
       body {
         font-family: 'Inter', sans-serif;
         -webkit-font-smoothing: antialiased;
       }
-      /* Print styles for perfect receipt printing */
       @media print {
         @page { margin: 0; size: auto; }
         body { background: white; margin: 0; padding: 0; }
@@ -50,7 +60,6 @@
           max-width: 100% !important;
           page-break-inside: avoid;
         }
-        /* Ensure background colors print */
         * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       }
     </style>
@@ -60,9 +69,9 @@
     "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "vite": "https://esm.sh/vite@^7.3.0"
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>
